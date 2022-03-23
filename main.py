@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
-from os import path
-import os.path
 from tkinter import *
-import csv
-import random
 import datetime
-import os
 from tkinter import messagebox
-from matplotlib import pyplot as plt
 
 from database import StockEntity
 
 root = Tk()
-root.title("Inventory Control")
+root.title("Inventory Control Window")
 root.iconbitmap("Logo.ico")
 root.geometry("600x400")
 
@@ -119,25 +113,25 @@ def additem():
 
 def raw_material():
     # open Tkinter window for Raw materials management (create/add/etc.)
-    
+
     global raw
     raw = Toplevel()
     raw.iconbitmap("Logo.ico")
     raw.geometry("610x400")
     raw.title("Raw Material Management")
-    
+
     Label(raw, text="Raw Material Management", font=(
         "arial", 30)).grid(ipadx=80, row=0, column=0, columnspan=3)
     Button(raw, text="Create Item",
-                        command=createitem, borderwidth=13).grid(row=2, column=0)
+           command=createitem, borderwidth=13).grid(row=2, column=0)
     Button(raw, text="Add Item", command=additem,
-                        borderwidth=13).grid(row=2, column=1)
-    
+           borderwidth=13).grid(row=2, column=1)
+
     global framei1_entry1
     framei1_entry1 = LabelFrame(
         raw, text="Raw material console", padx=10, pady=10)
     framei1_entry1.grid(row=3, column=0, columnspan=3)
-    
+
     raw.mainloop()
 
 
