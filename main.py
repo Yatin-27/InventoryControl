@@ -135,7 +135,7 @@ def raw_material():
     raw.mainloop()
 
 
-l = Label(root, text="Jeet Sales Co.", font=("arial", 50)
+l = Label(root, text="The Goods Store", font=("arial", 50)
           ).grid(ipadx=80, row=0, column=0, columnspan=3)
 
 b1 = Button(root, text="Raw Material", command=raw_material,
