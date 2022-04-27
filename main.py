@@ -435,6 +435,7 @@ def stock():
 l = Label(root, text="The Goods Store", font=("arial", 50)
           ).grid(ipadx=500, row=0,pady=50, column=0, columnspan=3)
 
+
 b1 = Button(root, text="Raw Material", command=raw_material,
             borderwidth=13).grid(row=2,pady=100, column=0)
 
