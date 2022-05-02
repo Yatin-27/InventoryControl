@@ -235,7 +235,7 @@ def addproduct():
                 "Success!!", "Item updated successfully in database", parent=prod)
             ei4.delete(0, END)
         except Exception as exp:
-            messagebox.showerror("Invalid data input!!!!!!!", parent=prod)
+            messagebox.showerror("Invalid data input!!!!!", parent=prod)
             ei4.delete(0, END)
 
     Button(framei2, text="Quit", command=prod.quit).grid(row=5, column=0)
