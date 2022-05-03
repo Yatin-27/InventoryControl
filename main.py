@@ -40,7 +40,7 @@ def createitem():
 
     # global r
     r = IntVar()
-    r.set("1")
+    r.set(1)
     Radiobutton(framei1_entry1, text="Single multiplier",
                 variable=r, value=1).grid(row=2, column=0, columnspan=2)
     Radiobutton(framei1_entry1, text="Dozen multiplier", variable=r,
@@ -86,7 +86,7 @@ def additem():
     qtyEntry.grid(row=1, column=1)
 
     re = IntVar()
-    re.set("1")
+    re.set(1)
     Radiobutton(framei1_entry1, text="Single multiplier",
                 variable=re, value=1).grid(row=2, column=0, columnspan=2)
     Radiobutton(framei1_entry1, text="Dozen multiplier", variable=re,
@@ -143,7 +143,7 @@ def raw_material():
 
 
 def create_product():
-    dii = []
+    products = []
 
     for widget in framei2.winfo_children():
         widget.destroy()
@@ -161,21 +161,21 @@ def create_product():
     Label(framei2, text="Enter the components required to make it 1 by 1. When all components are added ,then click on submit : ").grid(
         row=2, column=0, columnspan=3)
 
-    lte = [result[0] for result in stockObj.read()]
+    components = [result[0] for result in stockObj.read()]
 
     Label(framei2, text="Select the name of component : ").grid(
         row=3, column=0)
     a = StringVar()
-    drop = OptionMenu(framei2, a, *lte)
+    drop = OptionMenu(framei2, a, *components)
     drop.grid(row=3, column=1, ipadx=130, columnspan=2)
 
     Label(framei2, text="Enter the qty of component required: ").grid(
         row=4, column=0)
-    ei4 = Entry(framei2, width=50)
-    ei4.grid(row=4, column=1, columnspan=2)
+    quantity = Entry(framei2, width=50)
+    quantity.grid(row=4, column=1, columnspan=2)
 
-    li456 = LabelFrame(framei2, text="Items added")
-    li456.grid(row=6, column=0, columnspan=3)
+    items = LabelFrame(framei2, text="Items added")
+    items.grid(row=6, column=0, columnspan=3)
 
     componentList = []
 
@@ -192,10 +192,10 @@ def create_product():
 
     def add_component():
         component_name = a.get()
-        component_qty = ei4.get()
+        component_qty = quantity.get()
         try:
             componentList.append([component_name, component_qty])
-            Label(li456, text=component_name+" has been added.").pack()
+            Label(items, text=component_name+" has been added.").pack()
         except IndexError as exp:
             print(exp)
             print(traceback.format_exc())
@@ -222,24 +222,24 @@ def addproduct():
     drop.grid(row=0, column=1, ipadx=130)
 
     Label(framei2, text="Enter the qty of product added: ").grid(row=1, column=0)
-    ei4 = Entry(framei2, width=50)
-    ei4.grid(row=1, column=1)
+    quantity = Entry(framei2, width=50)
+    quantity.grid(row=1, column=1)
 
-    def sd():
+    def notify():
 
         try:
-            qty = float(ei4.get())
+            qty = float(quantity.get())
             product = productObj.read(a.get())[0]
             productObj.update(product[0], product[1] + qty, None, None)
             messagebox.showinfo(
                 "Success!!", "Item updated successfully in database", parent=prod)
-            ei4.delete(0, END)
+            quantity.delete(0, END)
         except Exception as exp:
             messagebox.showerror("Invalid data input!!!!!", parent=prod)
-            ei4.delete(0, END)
+            quantity.delete(0, END)
 
     Button(framei2, text="Quit", command=prod.quit).grid(row=5, column=0)
-    Button(framei2, text="Submit", command=sd).grid(row=5, column=1)
+    Button(framei2, text="Submit", command=notify).grid(row=5, column=1)
 
 
 def saleproduct():
@@ -258,7 +258,7 @@ def saleproduct():
     qty_sold_entry = Entry(framei2, width=50)
     qty_sold_entry.grid(row=1, column=1)
 
-    def sd():
+    def notify():
         try:
             qty = float(qty_sold_entry.get())
             product = productObj.read(a.get())[0]
@@ -276,7 +276,7 @@ def saleproduct():
 
     Button(framei2, text="Quit",
                          command=prod.quit).grid(row=5, column=0)
-    Button(framei2, text="Submit", command=sd).grid(row=5, column=1)
+    Button(framei2, text="Submit", command=notify).grid(row=5, column=1)
 
 
 def product():
@@ -285,13 +285,13 @@ def product():
     prod.iconbitmap("Logo.ico")
     prod.geometry("610x400")
     prod.title("Product Management")
-    lr = Label(prod, text="Product Management", font=("arial", 30)
+    pm = Label(prod, text="Product Management", font=("arial", 30)
                ).grid(ipadx=80, row=0, column=0, columnspan=3)
-    b1r = Button(prod, text="Create Product", command=create_product,
+    cp = Button(prod, text="Create Product", command=create_product,
                  borderwidth=13).grid(row=2, column=0)
-    b2r = Button(prod, text="Add Product", command=addproduct,
+    ap = Button(prod, text="Add Product", command=addproduct,
                  borderwidth=13).grid(row=2, column=1)
-    b3r = Button(prod, text="Sale Product", command=saleproduct,
+    sp = Button(prod, text="Sale Product", command=saleproduct,
                  borderwidth=13).grid(row=2, column=2)
     global framei2
     framei2 = LabelFrame(prod, text="Product console", padx=10, pady=10)
@@ -416,15 +416,15 @@ def stock():
     stoc.iconbitmap("Logo.ico")
     stoc.geometry("610x400")
     stoc.title("Stock Management")
-    lr = Label(stoc, text="Stock Management", font=("arial", 30)
+    sm = Label(stoc, text="Stock Management", font=("arial", 30)
                ).grid(ipadx=80, row=0, column=0, columnspan=4)
-    b1r = Button(stoc, text="Raw", command=stockraw,
+    raw = Button(stoc, text="Raw", command=stockraw,
                  borderwidth=13).grid(row=2, column=0)
-    b2r = Button(stoc, text="Product", command=stockproduct,
+    product = Button(stoc, text="Product", command=stockproduct,
                  borderwidth=13).grid(row=2, column=1)
-    b3r = Button(stoc, text="Raw Min", command=minstockraw,
+    rm = Button(stoc, text="Raw Min", command=minstockraw,
                  borderwidth=13).grid(row=2, column=2)
-    b4r = Button(stoc, text="Product Min", command=minstockproduct,
+    pm = Button(stoc, text="Product Min", command=minstockproduct,
                  borderwidth=13).grid(row=2, column=3)
     global framei3
     framei3 = LabelFrame(stoc, text="Product console", padx=10, pady=10)
@@ -432,17 +432,17 @@ def stock():
     stoc.mainloop()
 
 
-l = Label(root, text="The Goods Store", font=("arial", 50)
+tgs = Label(root, text="The Goods Store", font=("arial", 50)
           ).grid(ipadx=500, row=0,pady=50, column=0, columnspan=3)
 
 
-b1 = Button(root, text="Raw Material", command=raw_material,
+rm = Button(root, text="Raw Material", command=raw_material,
             borderwidth=13).grid(row=2,pady=100, column=0)
 
-b2 = Button(root, text="Products", command=product,
+p = Button(root, text="Products", command=product,
             borderwidth=13).grid(row=2,pady=100, column=1, ipadx=10)
 
-b3 = Button(root, text="Stock", command=stock,
+s = Button(root, text="Stock", command=stock,
             borderwidth=13).grid(row=2,pady=100, column=2, ipadx=20)
 
 
