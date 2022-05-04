@@ -311,8 +311,8 @@ def stockraw():
     for result in results:
         labels.append(result[0])
         slices.append(result[1])
-        s = f"Stock of {result[0]} is {result[1]} \n"+s
-
+        s = f"Stock of {result[0]} is {result[1]} \n"+s 
+ 
     Label(framei3, text=s).pack()
 
     plt.style.use("fivethirtyeight")
@@ -392,7 +392,7 @@ def minstockproduct():
 
     results = productObj.read()
     for line in results:
-        if (line[1] <= line[2]):  # TODO: correct this condition based on requirements
+        if (line[1] <= line[2]):  
             s = f"Stock of {line[0]} is {line[1]} while you have set min qty as {line[2]}\n"+s
             labels.append(line[0])
             slices.append(line[1])
